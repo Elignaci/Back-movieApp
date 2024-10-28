@@ -28,7 +28,26 @@ const movies = {
     WHERE id='$'`
 }
 
+const users = {
+    getUserByEmail:`
+    SELECT *
+    FROM USERS
+    WHERE email = $1
+    `,
+
+    createUser:`
+    INSERT INTO users (name, email, password, role)
+    VALUES ($1, $2, $3, $4)
+    `,
+
+    updateUserPasswordByEmail:`
+    UPDATE users
+    SET password = $2
+    WHERE email = $1
+    `
+}
 
 module.exports={
-    movies
+    movies,
+    users
 }
