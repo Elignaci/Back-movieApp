@@ -63,4 +63,5 @@ VALUES
 INSERT INTO movies (title, year, director, duration, genre_id)
 VALUES
 ('Tron: Legacy', 2010, 'Joseph Kosinski', 125, 2),
-('El Hobbit: Un viaje inesperado', 2012, 'Peter Jackson', 169, 1);
+('El Hobbit: Un viaje inesperado', 2012, 'Peter Jackson', 169, 1),
+('El Hobbit: La desolacion de Smaug', 2013, 'Peter Jackson', 161, 1);
