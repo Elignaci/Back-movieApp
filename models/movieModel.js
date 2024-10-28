@@ -5,20 +5,7 @@ const{connect}= require('../helpers/bbddConnect')
 const {movies}=require('./queries')
 
 
-//Get all movies
-/*const getAllMovies = async () =>{
-    let movie, result;
-    try {
-        movie = await pool.connect();
-        result = await movie.query(movies.getAllMovies)
-    } catch (error) {
-        console.log(error)
-        throw error
-    } finally{
-        movie.release()
-    }
-    return result.rows
-}*/
+
 
 const getAllMoviesModel = async () =>{
     try {
@@ -71,9 +58,10 @@ const editMovieModel = async (id, title, image_url, year, director, duration, ge
 
 
 module.exports={
-    getAllMoviesModel,
-    getMovieByTitleModel,
-    createMovieModel,
-    deleteMovieModel,
-    editMovieModel
+        getAllMoviesModel,
+        getMovieByTitleModel,
+        createMovieModel,
+        deleteMovieModel,
+        editMovieModel
 }
+
