@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 /*Rutas*/
-//app.use('/api/v1', require('./routes/apiRouter'))
+app.use('/api/v1/movies', require('./routers/apiRouter'))
 app.use('/api/v1/auth', require('./routers/authRouter'))
 
 /*Servidor a la escucha*/
