@@ -1,7 +1,11 @@
 /*importacion de los modelos de movie*/
 const {
-    getAllMovies, 
-    getMovieByTitle
+    getAllMoviesModel, 
+    getMovieByTitleModel,
+    createMovieModel,
+    deleteMovieModel,
+    editMovieModel
+    
     }=require('../models/movieModel')
 
 
@@ -14,11 +18,11 @@ const getMovies = async (req, res) => {
         const title = req.body.title
 
         if (title){
-            data = await getMovieByTitle(title)
+            data = await getMovieByTitleModel(title)
         } else {
-            data = await getAllMovies()
+            data = await getAllMoviesModel()
         }
-
+        
         return res.status(200).json({
             ok:true,
             data
@@ -36,22 +40,82 @@ const getMovies = async (req, res) => {
 }
 
 /*Funcion crear pelis*/
-const createMovie = (req, res) => {
+const createMovie = async (req, res) => {
     const { title,
-            imagen_url, 
+            image_url, 
             year, 
             director, 
             duration, 
             genre_id}=req.body
 
+    
+    try {
+        const movieSaved= await createMovieModel(title, image_url, year, director, duration, genre_id)
+        return res.status(201).json({
+            ok: true,
+            msg: 'Nueva pelicula creada',
+            movieSaved
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al crear la pelicula'
+        })
+    }
+
 }
 /*Funcion eliminar pelis*/
-const deleteMovie = (req, res) => {
-
+const deleteMovie = async (req, res) => {
+    const id = req.params.id
+    try {
+        const data = await deleteMovieModel(id)
+        if(!data){
+            return res.status(404).json({
+                ok: false,
+                msg:"Pelicula no encotrada"
+            })
+        }
+        return res.status(200).json({
+            ok: true,
+            msg: 'Eliminando película',
+            data
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al eliminar la pelicula'
+        })
+    }
 }
 /*Funcion editar pelis*/
-const editMovie = (req, res) => {
+const editMovie = async (req, res) => {
+    try {
+        const { title,
+                image_url, 
+                year, 
+                director, 
+                duration, 
+                genre_id}=req.body;
 
+        const id=req.params.id;
+
+        const movieEdited = await editMovieModel(id, title, image_url, year, director, duration, genre_id)
+        return res.status(200).json({
+            ok: true,
+            msg: 'Pelicula actualizada',
+            movieEdited
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: 'No se ha podido actualizar la película'
+        })   
+    }
 }
 
 

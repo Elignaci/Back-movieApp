@@ -4,7 +4,23 @@ const{connect}= require('../helpers/bbddConnect')
 
 const {movies}=require('./queries')
 
-const getAllMovies = async () =>{
+
+//Get all movies
+/*const getAllMovies = async () =>{
+    let movie, result;
+    try {
+        movie = await pool.connect();
+        result = await movie.query(movies.getAllMovies)
+    } catch (error) {
+        console.log(error)
+        throw error
+    } finally{
+        movie.release()
+    }
+    return result.rows
+}*/
+
+const getAllMoviesModel = async () =>{
     try {
         let data = await connect(movies.getAllMovies)
       console.log(data.rows)
@@ -14,19 +30,50 @@ const getAllMovies = async () =>{
     } 
 }
 
-const getMovieByTitle = async (title) =>{
-
+const getMovieByTitleModel = async (title) =>{
     try {
         let data = await connect(movies.getMovieByTitle, [title])
-      console.log(data.rows)
-      return data.rows
+        console.log(data.rows)
+        return data.rows
     } catch (error) {
         console.log(error)
     } 
 }
 
+const createMovieModel = async (title, image_url, year, director, duration, genre_id) =>{
+    try {
+        let data = await connect(movies.createMovie, [title, image_url, year, director, duration, genre_id])
+        return data.rows 
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const deleteMovieModel = async (id) =>{
+    try {
+        let data = await connect(movies.deleteMovie, [id])
+        console.log(data.rows)
+        return data.rows
+    } catch (error) {
+        console.log(error)
+    } 
+}
+
+const editMovieModel = async (id, title, image_url, year, director, duration, genre_id) =>{
+    try {
+        let data = await connect(movies.editMovie, [id,title, image_url, year, director, duration, genre_id])
+        console.log(data.rows)
+        return data.rows
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 module.exports={
-    getAllMovies,
-    getMovieByTitle
+    getAllMoviesModel,
+    getMovieByTitleModel,
+    createMovieModel,
+    deleteMovieModel,
+    editMovieModel
 }
