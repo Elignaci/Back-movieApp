@@ -21,10 +21,10 @@ router.get('/', getMovies);
 router.post('/', createMovie);
 
 //delete movie
-router.delete('/:title', deleteMovie);
+router.delete('/:id', deleteMovie);
 
 //update movie by title 
-router.put('/:title', editMovie);
+router.put('/:id', editMovie);
 
 
 //search favorites (es un join de movies y user_movies)
