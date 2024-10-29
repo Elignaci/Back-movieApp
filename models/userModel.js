@@ -1,5 +1,5 @@
 const{ connect } = require('../helpers/bbddConnect')
-const { users } = require('./queries')
+const { users, movies } = require('./queries')
 
 /**
  * Busca un usuario en la base de datos por su email.
@@ -59,6 +59,39 @@ const updateUserPasswordByEmailModel = async (email, hashedPassword) => {
         throw error;
     }
 };
+
+/**
+ * Trae de la base de datos todas las peliculas.
+ * 
+ * @returns {Object} - Devuevlo todas las peliculas.
+ */
+const getAllMoviesModel = async () => {
+    try {
+        let data = await connect(movies.getAllMovies);
+        console.log(data.rows)
+        return data.rows
+    } catch (error) {
+        console.log(error);
+        throw error;
+    } 
+}
+
+/**
+ * Busca peliculas por el titulo.
+ * 
+ * @param {String} tittle - titulo de la pelicula a buscar.
+ * @returns {Object} - Las peliculas encontradas.
+ */
+const getMoviesByTitleModel = async (tittle) => {
+    try {
+        let data = await connect(movies.getMovieByTitle(tittle));
+        console.log(data.rows)
+        return data.rows
+    } catch (error) {
+        console.log(error);
+        throw error;
+    } 
+} 
 
 /**
  * Obtiene las películas favoritas de un usuario por su email.
@@ -123,6 +156,8 @@ module.exports={
     getUserByEmailModel,
     createUserModel,
     updateUserPasswordByEmailModel,
+    getAllMoviesModel,
+    getMoviesByTitleModel,
     getUserFavoritesMoviesModel,
     addUserFavoritesMoviesModel,
     deleteUserFavoritesMoviesModel

@@ -7,31 +7,29 @@ const router=express.Router();
 /*importacion de funciones controladoras*/
 const { 
         getMovies,
+        getMoviesByTittle,
         createMovie,
         deleteMovie,
         editMovie,
         getGenres,         
         createGenre 
-    } = require('../controllers/movieController')
+} = require('../controllers/adminController')
 
 /* Rutas Movies */
-// Obtener todas las películas + búsqueda por título 
-router.get('/', getMovies);
 
-// Crear película
-router.post('/', createMovie);
+router.get('/movies', getMovies);
 
-// Eliminar película por id 
-router.delete('/:id', deleteMovie);
+router.get("/search/:title", getMoviesByTittle);
 
-// Actualizar película por id 
-router.put('/:id', editMovie);
+router.post('/createmovie', createMovie);
 
-// Obtener todos los generos
+router.delete('/removemovie/:id', deleteMovie);
+
+router.put('/editmovie/:id', editMovie);
+
 router.get('/genres', getGenres);
 
-// Crear nuevo genero
-router.post('/genre', createGenre);  
+router.post('/creategenre', createGenre);  
 
 /*Exportacion rutaz*/
 module.exports = router;

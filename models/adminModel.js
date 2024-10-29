@@ -1,6 +1,4 @@
-//const {Pool}=require('pg')
 const{ connect }= require('../helpers/bbddConnect')
-
 const { movies, genres }=require('./queries')
 
 const getAllMoviesModel = async () =>{
@@ -13,7 +11,7 @@ const getAllMoviesModel = async () =>{
     } 
 }
 
-const getMovieByTitleModel = async (title) =>{
+const getMoviesByTitleModel = async (title) =>{
     try {
         let data = await connect(movies.getMovieByTitle, [title])
         console.log(data.rows)
@@ -73,7 +71,7 @@ const createGenreModel = async (name) => {
 
 module.exports={
     getAllMoviesModel,
-    getMovieByTitleModel,
+    getMoviesByTitleModel,
     createMovieModel,
     deleteMovieModel,
     editMovieModel,

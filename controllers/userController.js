@@ -1,100 +1,10 @@
 const { 
-    getUserByEmailModel,
-    createUserModel,
-    updateUserPasswordByEmailModel,
     getUserFavoritesMoviesModel,
+    getAllMoviesModel,
+    getMoviesByTitleModel,
     addUserFavoritesMoviesModel,
     deleteUserFavoritesMoviesModel
 } = require('../models/userModel');
-
-/**
- * Controlador para obtener un usuario por su email.
- * 
- * @param {Object} req - La solicitud.
- * @param {Object} res - La respuesta.
- * @returns {Object} - El objeto JSON con la respuesta.
- */
-const getUserByEmail = async (req, res) => {
-    try {
-        const email = req.body.email;
-        const user = await getUserByEmailModel(email);
-        if (user) {
-            return res.status(200).json({
-                ok:true,
-                user
-            })
-        } else {
-            return res.status(404).json(
-                {
-                    ok: false, 
-                    message: 'Usuario no encontrado' 
-                }
-            );
-        }
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error contacte con el administrador'
-        });
-    }
-};
-
-/**
- * Controlador para crear un nuevo usuario.
- * 
- * @param {Object} req - La solicitud.
- * @param {Object} res - La respuesta.
- * @returns {Object} - El objeto JSON con la respuesta.
- */
-const createUser = async (req, res) => {
-    try {
-        const userData = req.body;
-        const newUser = await createUserModel(userData);
-        return res.status(201).json({
-            ok: true,
-            newUser
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error contacte con el administrador'
-        });
-    }
-};
-
-/**
- * Controlador para actualizar la contraseña de un usuario por su email.
- * 
- * @param {Object} req - La solicitud.
- * @param {Object} res - La respuesta.
- * @returns {Object} - El objeto JSON con la respuesta.
- */
-const updateUserPasswordByEmail = async (req, res) => {
-    try {
-        const { email, hashedPassword } = req.body;
-        const updatedUser = await updateUserPasswordByEmailModel(email, hashedPassword);
-
-        if (updatedUser.rowCount > 0) {
-            return res.status(200).json({
-                ok: true,
-                message: 'Contraseña actualizada con éxito'
-            });
-        } else {
-            return res.status(404).json({
-                ok: false,
-                message: 'Usuario no encontrado'
-            });
-        }
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error contacte con el administrador'
-        });
-    }
-};
 
 /**
  * Controlador para obtener las películas favoritas de un usuario por su email.
@@ -119,6 +29,56 @@ const getUserFavoritesMovies = async (req, res) => {
         });
     }
 };
+
+/**
+ * Controlador para obtener todas las peliculas
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
+const getAllMovies = async (req, res) => {
+    let movies;
+    try {
+        movies = await getAllMoviesModel()
+        return res.status(200).json({
+            ok: true,
+            data: movies
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error contacte con el administrador'
+        });
+    }
+};
+
+/**
+ * Controlador para buscar peliculas por el titulo
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
+const getMoviesByTittle = async (req, res) => {
+    let movies;
+    try {
+        const title = req.params.title;
+        movies = await getMoviesByTitleModel(title);
+        return res.status(200).json({
+            ok: true,
+            data: movies
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error contacte con el administrador'
+        });
+    }
+};
+
 
 /**
  * Controlador para agregar una película a los favoritos de un usuario.
@@ -179,10 +139,9 @@ const deleteUserFavoritesMovies = async (req, res) => {
 };
 
 module.exports = {
-    getUserByEmail,
-    createUser,
-    updateUserPasswordByEmail,
     getUserFavoritesMovies,
+    getAllMovies,
+    getMoviesByTittle,
     addUserFavoritesMovies,
     deleteUserFavoritesMovies
 };
