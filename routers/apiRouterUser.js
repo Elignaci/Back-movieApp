@@ -19,9 +19,6 @@ const {
         deleteUserFavoritesMovies
 } = require('../controllers/userController')
 
-
-
-
 /* Rutas de usuario */
 router.get("/movies", [
         check('email')

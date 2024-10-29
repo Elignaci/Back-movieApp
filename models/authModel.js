@@ -28,8 +28,9 @@ const getUserByEmailModel = async (email) =>{
  */
 const createUserModel = async (user) =>{
     const { name, email, hashedPassword, role } = user;
+    let newUser;
     try {
-        let newUser = await connect(
+        newUser = await connect(
             users.createUser, 
             [name, email, hashedPassword, role]
         );
@@ -48,8 +49,9 @@ const createUserModel = async (user) =>{
  * @returns {Object} - Resultado de la actualización.
  */
 const updateUserPasswordByEmailModel = async (email, hashedPassword) => {
+    let updatedUser;
     try {
-        let updatedUser = await connect(
+        updatedUser = await connect(
             users.updateUserPasswordByEmail, 
             [email, hashedPassword]
         );

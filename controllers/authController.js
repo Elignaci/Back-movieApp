@@ -4,6 +4,7 @@ const {
     updateUserPasswordByEmailModel 
 } = require('../models/authModel');
 
+const bcrypt = require('bcryptjs');
 
 /**
  * Controlador para obtener usuario por email.
@@ -14,7 +15,7 @@ const {
  */
 const getUserByEmail = async (req, res) => {
     try {
-        const { email } = req.query;
+        const { email } = req.body;
         const user = await getUserByEmailModel(email);
         if (user) {
             return res.status(200).json(
@@ -50,9 +51,14 @@ const getUserByEmail = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 12);
         const newUser = await createUserModel(
-            { name, email, hashedPassword, role }
+            { 
+                name, 
+                email, 
+                hashedPassword, 
+                role 
+            }
         );
         return res.status(201).json(
             { 
@@ -80,7 +86,7 @@ const createUser = async (req, res) => {
 const updateUserPasswordByEmail = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10); // Hashea la nueva contraseña
+        const hashedPassword = await bcrypt.hash(password, 12); 
         const updatedUser = await updateUserPasswordByEmailModel(email, hashedPassword);
         return res.status(200).json(
             { ok: true, 
