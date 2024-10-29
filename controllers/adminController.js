@@ -9,7 +9,13 @@ const {
     createGenreModel
 }=require('../models/adminModel')
 
-/*Funcion todas las pelis + pelispor titulo*/
+/**
+ * Controlador para obtener todas las peliculas
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const getMovies = async (req, res) => {
     let movies;
     try {
@@ -27,10 +33,17 @@ const getMovies = async (req, res) => {
     }
 };
 
+/**
+ * Controlador para buscar peliculas por el titulo.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const getMoviesByTittle = async (req, res) => {
     let movies;
     try {
-        const title = req.params.title;
+        const title = req.body.title;
         movies = await getMoviesByTitleModel(title);
         return res.status(200).json({
             ok: true,
@@ -45,7 +58,13 @@ const getMoviesByTittle = async (req, res) => {
     }
 };
 
-/*Funcion crear pelis*/
+/**
+ * Controlador para crear una película.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const createMovie = async (req, res) => {
     const { title,
             image_url, 
@@ -69,7 +88,13 @@ const createMovie = async (req, res) => {
     }
 };
 
-/*Funcion eliminar pelis*/
+/**
+ * Controlador para eliminar una película.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const deleteMovie = async (req, res) => {
     const id = req.params.id
     try {
@@ -93,7 +118,13 @@ const deleteMovie = async (req, res) => {
     }
 };
 
-/*Funcion editar pelis*/
+/**
+ * Controlador para editar una película.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const editMovie = async (req, res) => {
     const { title,
         image_url, 
@@ -118,6 +149,13 @@ const editMovie = async (req, res) => {
     }
 };
 
+/**
+ * Controlador para obtener todos los gneros*
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const getGenres = async (req, res) => {
     try {
         const genres = await getAllGenresModel();
@@ -134,6 +172,13 @@ const getGenres = async (req, res) => {
     }
 };
 
+/**
+ * Controlador para crear una genero.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
 const createGenre = async (req, res) => {
     const { name } = req.body;
     try {
