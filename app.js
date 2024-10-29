@@ -1,6 +1,12 @@
 /*importacion express*/
 const express = require('express');
 
+/*importacion de cookie-parser*/
+const cookieParser = require('cookie-parser');
+
+/*importar cors*/
+const cors = require('cors');
+
 /*importacion de dotenv*/
 require('dotenv').config()
 
@@ -13,6 +19,10 @@ const port=process.env.PORT
 /*Middlewares*/
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
+
+app.use(cors());
+
+app.use(cookieParser());
 
 // parse application/json
 app.use(express.json())

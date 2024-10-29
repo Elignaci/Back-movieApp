@@ -106,13 +106,36 @@ const login = async (req, res) => {
         // Obtener el token de Firebase
         const idToken = await user.getIdToken();
 
+        // Establecer la cookie con el token de Firebase
+        res.cookie(
+            'access_token', 
+            idToken, 
+            {
+                httpOnly: true,
+                sameSite: 'Strict', 
+                maxAge: 3600000 
+            }
+        );
+
+        // Establecer cookie para el rol 
+        res.cookie('user_role', userData.role, {
+            httpOnly: true,
+            sameSite: 'Strict',
+            maxAge: 3600000
+        });
+
+        // Establecer cookie para el email verificado
+        res.cookie('email_verified', isVerified, {
+            httpOnly: true,
+            sameSite: 'Strict',
+            maxAge: 3600000
+        });
+
         // Enviar el ID token y el rol en la respuesta
         return res.status(200).json(
             {
                 ok: true, 
-                idToken,
-                verified: isVerified,
-                role: userData.role
+                message: "Logeado exitosamente."
             }
         );
     } catch (error) {
@@ -143,6 +166,10 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         await signOut(auth);
+        // Limpiar las cookies
+        res.clearCookie('access_token');
+        res.clearCookie('user_role');
+        res.clearCookie('email_verified');
         res.status(204).json(
             {
                 ok: true, 

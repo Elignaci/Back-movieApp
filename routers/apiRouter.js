@@ -12,20 +12,24 @@ const {
         editMovie
     } = require('../controllers/apiController')
 
+/* Importación de middlewares */
+const { 
+    verifyToken, 
+    verifyRole 
+} = require('../middlewares/authMiddleware');
 
 /*Rutas Movies*/
-//Get all movies + moviebytitle
-router.get('/', getMovies);
+// Obtener todas las películas + búsqueda por título (requiere autenticación)
+router.get('/', verifyToken, getMovies);
 
-//create movie
-router.post('/', createMovie);
+// Crear película (requiere autenticación y rol de administrador)
+router.post('/', verifyToken, verifyRole(['admin']), createMovie);
 
-//delete movie
-router.delete('/:id', deleteMovie);
+// Eliminar película por id (requiere autenticación y rol de administrador)
+router.delete('/:id', verifyToken, verifyRole(['admin']), deleteMovie);
 
-//update movie by title 
-router.put('/:id', editMovie);
-
+// Actualizar película por id (requiere autenticación y rol de administrador)
+router.put('/:id', verifyToken, verifyRole(['admin']), editMovie);
 
 //search favorites (es un join de movies y user_movies)
 
