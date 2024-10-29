@@ -64,7 +64,7 @@ const getAllMovies = async (req, res) => {
 const getMoviesByTittle = async (req, res) => {
     let movies;
     try {
-        const title = req.params.title;
+        const title = req.body.title;
         movies = await getMoviesByTitleModel(title);
         return res.status(200).json({
             ok: true,

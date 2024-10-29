@@ -31,5 +31,3 @@ app.use('/api/v1/auth', require('./routers/apiRouterUser'))
 app.listen(port, ()=>{
     console.log(`Server on port ${port}`)
 })
-
-//Importar cors!!
