@@ -8,7 +8,14 @@ const pool = new Pool({
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD
 })
-
+/**
+ * Funcion para conectarse a BBDD.
+ * Si
+ * 
+ * @param {Object} consulta 
+ * @param {Array} variables 
+ * @returns {Object} - Respuesta con la query.
+ */
 const connect = async (consulta, variables=[]) =>{
     let movie, response;
     try {
