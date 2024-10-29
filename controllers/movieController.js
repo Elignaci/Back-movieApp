@@ -4,11 +4,10 @@ const {
     getMovieByTitleModel,
     createMovieModel,
     deleteMovieModel,
-    editMovieModel
-    
-    }=require('../models/movieModel')
-
-
+    editMovieModel,
+    getAllGenresModel,        
+    createGenreModel
+}=require('../models/movieModel')
 
 /*Funcion todas las pelis + pelispor titulo*/
 const getMovies = async (req, res) => {
@@ -118,11 +117,46 @@ const editMovie = async (req, res) => {
     }
 }
 
+const getGenres = async (req, res) => {
+    try {
+        const genres = await getAllGenresModel();
+        return res.status(200).json({
+            ok: true,
+            data: genres
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al obtener géneros'
+        });
+    }
+};
+
+const createGenre = async (req, res) => {
+    const { name } = req.body;
+    try {
+        const newGenre = await createGenreModel(name);
+        return res.status(201).json({
+            ok: true,
+            msg: 'Nuevo género creado',
+            genre: newGenre
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al crear el género'
+        });
+    }
+};
 
 /*Exportacion funciones*/
 module.exports={
     getMovies,
     createMovie,
     deleteMovie,
-    editMovie
+    editMovie,
+    getGenres,       
+    createGenre 
 }

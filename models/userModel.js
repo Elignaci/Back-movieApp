@@ -60,10 +60,70 @@ const updateUserPasswordByEmailModel = async (email, hashedPassword) => {
     }
 };
 
+/**
+ * Obtiene las películas favoritas de un usuario por su email.
+ * 
+ * @param {string} email - El email del usuario.
+ * @returns {Array} - Lista de películas favoritas del usuario.
+ */
+const getUserFavoritesMoviesModel = async (email) => {
+    try {
+        let favorites = await connect(
+            users.getUserFavoritesMovies,
+            [email]
+        );
+        return favorites.rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 
+/**
+ * Agrega una película a las favoritas de un usuario.
+ * 
+ * @param {string} email - El email del usuario.
+ * @param {number} id_movie - El ID de la película.
+ * @returns {Object} - Resultado de la inserción.
+ */
+const addUserFavoritesMoviesModel = async (email, id_movie) => {
+    try {
+        let newfavorite = await connect(
+            users.addUserFavoritesMovies,
+            [email, id_movie]
+        );
+        return newfavorite;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+/**
+ * Elimina una película de las favoritas de un usuario.
+ * 
+ * @param {string} email - El email del usuario.
+ * @param {number} id_movie - El ID de la película.
+ * @returns {Object} - Resultado de la eliminación.
+ */
+const deleteUserFavoritesMoviesModel = async (email, id_movie) => {
+    try {
+        let favoriteDeleted = await connect(
+            users.deleteUserFavoritesMovies,
+            [email, id_movie]
+        );
+        return favoriteDeleted;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 
 module.exports={
     getUserByEmailModel,
     createUserModel,
-    updateUserPasswordByEmailModel
+    updateUserPasswordByEmailModel,
+    getUserFavoritesMoviesModel,
+    addUserFavoritesMoviesModel,
+    deleteUserFavoritesMoviesModel
 }

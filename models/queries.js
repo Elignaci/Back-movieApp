@@ -29,6 +29,20 @@ const movies = {
     WHERE id=$1`
 }
 
+const genres = {
+    getAllGenres:`
+    SELECT * 
+    FROM genres
+    ORDER BY name
+    `, 
+
+    createGenre:`
+    INSERT INTO genres (name)
+    VALUES ($1)
+    `
+};
+
+
 const users = {
     getUserByEmail:`
     SELECT *
@@ -45,10 +59,29 @@ const users = {
     UPDATE users
     SET password = $2
     WHERE email = $1
+    `,
+
+    getUserFavoritesMovies:`
+    SELECT users.email, movies.*
+    FROM movies
+    JOIN user_movies ON movies.id = user_movies.movie_id
+    JOIN users ON users.id = user_movies.user_id
+    WHERE users.email = $1
+    `,
+
+    addUserFavoritesMovies:`
+    INSERT INTO user_movies (user_id, movie_id)
+    VALUES ((SELECT id FROM users WHERE email = $1), $2)
+    `,
+
+    deleteUserFavoritesMovies:`
+    DELETE FROM user_movies
+    WHERE user_id = (SELECT id FROM users WHERE email = $1) AND movie_id = $2
     `
 }
 
 module.exports={
     movies,
-    users
+    users,
+    genres
 }

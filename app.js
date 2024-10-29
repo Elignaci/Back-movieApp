@@ -26,7 +26,8 @@ app.use(cors());
 app.use(express.json())
 
 /*Rutas*/
-app.use('/api/v1/movies', require('./routers/apiRouter'))
+app.use('/api/v1/movies', require('./routers/movieRouter'))
+app.use('/api/v1/users', require('./routers/userRouter'))
 
 /*Servidor a la escucha*/
 app.listen(port, ()=>{
