@@ -4,9 +4,6 @@ const{connect}= require('../helpers/bbddConnect')
 
 const {movies}=require('./queries')
 
-
-
-
 const getAllMoviesModel = async () =>{
     try {
         let data = await connect(movies.getAllMovies)

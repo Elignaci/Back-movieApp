@@ -22,14 +22,11 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(cors());
 
-app.use(cookieParser());
-
 // parse application/json
 app.use(express.json())
 
 /*Rutas*/
 app.use('/api/v1/movies', require('./routers/apiRouter'))
-app.use('/api/v1/auth', require('./routers/authRouter'))
 
 /*Servidor a la escucha*/
 app.listen(port, ()=>{
