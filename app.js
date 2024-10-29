@@ -1,9 +1,6 @@
 /*importacion express*/
 const express = require('express');
 
-/*importacion de cookie-parser*/
-const cookieParser = require('cookie-parser');
-
 /*importar cors*/
 const cors = require('cors');
 
@@ -28,6 +25,7 @@ app.use(express.json())
 /*Rutas*/
 app.use('/api/v1/admin', require('./routers/apiRouterAdmin'))
 app.use('/api/v1/user', require('./routers/apiRouterUser'))
+app.use('/api/v1/auth', require('./routers/apiRouterUser'))
 
 /*Servidor a la escucha*/
 app.listen(port, ()=>{
