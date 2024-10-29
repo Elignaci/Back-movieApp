@@ -8,6 +8,8 @@ const {
     
     }=require('../models/movieModel')
 
+
+
 /*Funcion todas las pelis + pelispor titulo*/
 const getMovies = async (req, res) => {
     let data;

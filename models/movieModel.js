@@ -4,6 +4,9 @@ const{connect}= require('../helpers/bbddConnect')
 
 const {movies}=require('./queries')
 
+
+
+
 const getAllMoviesModel = async () =>{
     try {
         let data = await connect(movies.getAllMovies)
@@ -55,9 +58,10 @@ const editMovieModel = async (id, title, image_url, year, director, duration, ge
 
 
 module.exports={
-    getAllMoviesModel,
-    getMovieByTitleModel,
-    createMovieModel,
-    deleteMovieModel,
-    editMovieModel
+        getAllMoviesModel,
+        getMovieByTitleModel,
+        createMovieModel,
+        deleteMovieModel,
+        editMovieModel
 }
+
