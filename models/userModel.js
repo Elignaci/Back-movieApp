@@ -82,7 +82,7 @@ const getAllMoviesModel = async () => {
  * @param {String} tittle - titulo de la pelicula a buscar.
  * @returns {Object} - Las peliculas encontradas.
  */
-const getMoviesByTitleModel = async (tittle) => {
+const getMoviesByTitleModel = async (title) => {
     try {
         let data = await connect(movies.getMovieByTitle, [title]);
         console.log(data.rows)
