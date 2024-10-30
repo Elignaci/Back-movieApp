@@ -1,6 +1,7 @@
 /*importacion de los modelos de movie*/
 const {
-    getAllMoviesModel, 
+    getAllMoviesModel,
+    getMovieByIdModel, 
     getMoviesByTitleModel,
     createMovieModel,
     deleteMovieModel,
@@ -21,6 +22,32 @@ const getMovies = async (req, res) => {
     let movies;
     try {
         movies = await getAllMoviesModel()
+        return res.status(200).json({
+            ok: true,
+            data: movies
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error contacte con el administrador'
+        });
+    }
+};
+
+
+/**
+ * Controlador para obtener una pelicula por el id.
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
+const getMovieById = async (req, res) => {
+    let movies;
+    try {
+        const id = req.params.id
+        movies = await getMovieByIdModel(id);
         return res.status(200).json({
             ok: true,
             data: movies
@@ -225,6 +252,7 @@ const createGenre = async (req, res) => {
 /*Exportacion funciones*/
 module.exports={
     getMovies,
+    getMovieById,
     getMoviesByTittle,
     createMovie,
     deleteMovie,

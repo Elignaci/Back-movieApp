@@ -13,6 +13,7 @@ const {validateInputs} = require('../middlewares/validateInputs')
 /*importacion de funciones controladoras*/
 const { 
         getMovies,
+        getMovieById,
         getMoviesByTittle,
         createMovie,
         deleteMovie,
@@ -25,6 +26,12 @@ const {
 /* Rutas Movies */
 
 router.get('/movies', getMovies);
+
+router.get('/movies/:id', [
+        check('id')
+        .notEmpty().withMessage('Id requerido')
+        .isInt().withMessage('El Id debe ser un numero'),
+], getMovieById);
 
 router.post("/search", [
         check('title')

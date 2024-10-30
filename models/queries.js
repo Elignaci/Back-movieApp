@@ -12,6 +12,12 @@ const movies = {
     WHERE movies.title ILIKE '%' || $1 || '%'
     ORDER BY movies.title`,
 
+    getMovieById:`
+    SELECT movies.*, genres.name AS genre_name
+    FROM movies
+    JOIN genres ON movies.genre_id = genres.id
+    WHERE movies.id ($1)`,
+
     createMovie:`
     INSERT INTO movies (title, image_url, year, director, duration, genre_id)
     VALUES ($1, $2, $3, $4, $5, $6)  

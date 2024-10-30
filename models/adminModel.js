@@ -17,6 +17,22 @@ const getAllMoviesModel = async () =>{
 }
 
 /**
+ * Trae una pelicula por el id.
+ * 
+ * @returns {Object} - Devuevle todas las peliculas.
+ */
+const getMovieByIdModel = async (id) =>{
+    try {
+        let data = await connect(movies.getMovieById, [id]);
+        console.log(data.rows);
+        return data.rows;
+    } catch (error) {
+        console.log(error)
+    } 
+}
+
+
+/**
  * Busca peliculas por el titulo.
  * 
  * @param {String} tittle - titulo de la pelicula a buscar.
@@ -136,6 +152,7 @@ const createGenreModel = async (name) => {
 
 module.exports={
     getAllMoviesModel,
+    getMovieByIdModel,
     getMoviesByTitleModel,
     createMovieModel,
     deleteMovieModel,
