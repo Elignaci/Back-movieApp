@@ -12,11 +12,13 @@ const movies = {
 
     createMovie:`
     INSERT INTO movies (title, image_url, year, director, duration, genre_id)
-    VALUES ($1, $2, $3, $4, $5, $6)`,
+    VALUES ($1, $2, $3, $4, $5, $6)  
+    RETURNING *`,
 
     deleteMovie:`
     DELETE FROM movies
-    WHERE id=$1`,
+    WHERE id=$1  
+    RETURNING *`,
 
     editMovie:`
     UPDATE movies
@@ -26,7 +28,8 @@ const movies = {
 	    director=$5,
 	    duration=$6,
         genre_id=$7
-    WHERE id=$1`
+    WHERE id=$1
+    RETURNING *`
 }
 
 const genres = {
@@ -39,6 +42,7 @@ const genres = {
     createGenre:`
     INSERT INTO genres (name)
     VALUES ($1)
+    RETURNING *
     `
 };
 
@@ -53,12 +57,14 @@ const users = {
     createUser:`
     INSERT INTO users (name, email, password, role)
     VALUES ($1, $2, $3, $4)
+    RETURNING *
     `,
 
     updateUserPasswordByEmail:`
     UPDATE users
     SET password = $2
     WHERE email = $1
+    RETURNING *
     `,
 
     getUserFavoritesMovies:`
@@ -72,11 +78,13 @@ const users = {
     addUserFavoritesMovies:`
     INSERT INTO user_movies (user_id, movie_id)
     VALUES ((SELECT id FROM users WHERE email = $1), $2)
+    RETURNING *
     `,
 
     deleteUserFavoritesMovies:`
     DELETE FROM user_movies
     WHERE user_id = (SELECT id FROM users WHERE email = $1) AND movie_id = $2
+    RETURNING *
     `
 }
 
