@@ -84,7 +84,7 @@ const getAllMoviesModel = async () => {
  */
 const getMoviesByTitleModel = async (tittle) => {
     try {
-        let data = await connect(movies.getMovieByTitle(tittle));
+        let data = await connect(movies.getMovieByTitle, [title]);
         console.log(data.rows)
         return data.rows
     } catch (error) {
