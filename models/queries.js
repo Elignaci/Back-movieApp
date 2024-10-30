@@ -1,14 +1,16 @@
 const movies = {
     getAllMovies: `
-    SELECT *
+    SELECT movies.*, genres.name AS genre_name
     FROM movies
-    ORDER BY title;`,
+    JOIN genres ON movies.genre_id = genres.id
+    ORDER BY movies.title`,
 
     getMovieByTitle:`
-    SELECT *
+    SELECT movies.*, genres.name AS genre_name
     FROM movies
-    WHERE title LIKE '%' || $1 || '%'
-    ORDER BY title;`,
+    JOIN genres ON movies.genre_id = genres.id
+    WHERE movies.title ILIKE '%' || $1 || '%'
+    ORDER BY movies.title`,
 
     createMovie:`
     INSERT INTO movies (title, image_url, year, director, duration, genre_id)
