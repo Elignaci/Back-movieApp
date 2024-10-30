@@ -25,7 +25,7 @@ const getMovieByIdModel = async (id) =>{
     try {
         let data = await connect(movies.getMovieById, [id]);
         console.log(data.rows);
-        return data.rows;
+        return data.rows[0];
     } catch (error) {
         console.log(error)
     } 
