@@ -20,7 +20,7 @@ const {
 } = require('../controllers/userController')
 
 /* Rutas de usuario */
-router.get("/movies", [
+router.post("/movies", [
         check('email')
         .notEmpty().withMessage('Email requerido')
         .isEmail().withMessage('Formato de email no válido')
@@ -32,7 +32,7 @@ router.get("/movies", [
 router.get('/search', getAllMovies);
 
 
-router.get("/searchtitle", [
+router.post("/searchtitle", [
         check('title')
         .notEmpty().withMessage('Titulo requerido')
         .isLength({ max: 100 }).withMessage('El titulo no puede exceder 100 caracteres'),

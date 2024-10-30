@@ -19,7 +19,7 @@ const {
 
 /* Rutas de usuario */
 // Obtener un usuario por email 
-router.get('/user', [
+router.post('/user', [
         check('email')
         .notEmpty().withMessage('Email requerido')
         .isEmail().withMessage('Formato de email no válido')

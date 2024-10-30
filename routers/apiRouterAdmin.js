@@ -26,7 +26,7 @@ const {
 
 router.get('/movies', getMovies);
 
-router.get("/search", [
+router.post("/search", [
         check('title')
         .notEmpty().withMessage('Titulo requerido')
         .isLength({ max: 100 }).withMessage('El titulo no puede exceder 100 caracteres'),
