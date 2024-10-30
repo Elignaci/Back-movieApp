@@ -39,6 +39,12 @@ const genres = {
     ORDER BY name
     `, 
 
+    getGenreById:`
+    SELECT * 
+    FROM genres
+    WHERE id = $1
+    `, 
+
     createGenre:`
     INSERT INTO genres (name)
     VALUES ($1)

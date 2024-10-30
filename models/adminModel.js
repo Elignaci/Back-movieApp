@@ -105,6 +105,21 @@ const getAllGenresModel = async () => {
 };
 
 /**
+ * Funcion para obtener un genero por su id.
+ * 
+ * @returns {object} - Devuelve todos los generos.
+ */
+const getGenreByIdModel = async (id) => {
+    try {
+        let data = await connect(genres.getGenreById, [id]);
+        console.log(data.rows);
+        return data.rows;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+/**
  *Funcion para crear generos de peliculas.
  *  
  * @param {string} name - Nombre del nuevo genero.
@@ -126,6 +141,7 @@ module.exports={
     deleteMovieModel,
     editMovieModel,
     getAllGenresModel,
+    getGenreByIdModel,
     createGenreModel
 }
 

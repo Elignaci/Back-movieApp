@@ -5,7 +5,8 @@ const {
     createMovieModel,
     deleteMovieModel,
     editMovieModel,
-    getAllGenresModel,        
+    getAllGenresModel,
+    getGenreByIdModel,        
     createGenreModel
 }=require('../models/adminModel')
 
@@ -173,6 +174,30 @@ const getGenres = async (req, res) => {
 };
 
 /**
+ * Controlador para obtener un genero por id
+ * 
+ * @param {Object} req - La solicitud.
+ * @param {Object} res - La respuesta.
+ * @returns {Object} - El objeto JSON con la respuesta.
+ */
+const getGenreById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const genres = await getGenreByIdModel(id);
+        return res.status(200).json({
+            ok: true,
+            data: genres
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error al obtener géneros'
+        });
+    }
+};
+
+/**
  * Controlador para crear una genero.
  * 
  * @param {Object} req - La solicitud.
@@ -204,6 +229,7 @@ module.exports={
     createMovie,
     deleteMovie,
     editMovie,
-    getGenres,       
+    getGenres,
+    getGenreById,       
     createGenre 
 }

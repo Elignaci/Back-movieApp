@@ -17,7 +17,8 @@ const {
         createMovie,
         deleteMovie,
         editMovie,
-        getGenres,         
+        getGenres,
+        getGenreById,         
         createGenre 
 } = require('../controllers/adminController')
 
@@ -88,6 +89,12 @@ router.put('/editmovie/:id', [
 ], editMovie);
 
 router.get('/genres', getGenres);
+
+router.get('/genre/:id', [
+        check('id')
+        .notEmpty().withMessage('Id requerido')
+        .isInt().withMessage('El Id debe ser un numero'),
+], getGenreById);
 
 router.post('/creategenre', [
         check('name')
