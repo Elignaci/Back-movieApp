@@ -16,7 +16,7 @@ const movies = {
     SELECT movies.*, genres.name AS genre_name
     FROM movies
     JOIN genres ON movies.genre_id = genres.id
-    WHERE movies.id ($1)`,
+    WHERE movies.id = ($1)`,
 
     createMovie:`
     INSERT INTO movies (title, image_url, year, director, duration, genre_id)
