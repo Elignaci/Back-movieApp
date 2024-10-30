@@ -94,8 +94,8 @@ const addUserFavoritesMovies = async (req, res) => {
         const newFavorite = await addUserFavoritesMoviesModel(email, id_movie);
         return res.status(201).json({
             ok: true,
-            message: "Pelicula agrgeado a favoritos.",
-            newFavorite
+            msg: "Pelicula agrgeado a favoritos.",
+            data: newFavorite
         });
     } catch (error) {
         console.log(error);
@@ -121,12 +121,13 @@ const deleteUserFavoritesMovies = async (req, res) => {
         if (favoriteDeleted.rowCount > 0) {
             return res.status(200).json({
                 ok: true,
-                message: 'Película eliminada de favoritos'
+                msg: 'Película eliminada de favoritos',
+                data: favoriteDeleted
             });
         } else {
             return res.status(404).json({
                 ok: false,
-                message: 'No se encontró la película en favoritos'
+                msg: 'No se encontró la película en favoritos'
             });
         }
     } catch (error) {

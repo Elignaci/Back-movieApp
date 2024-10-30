@@ -20,7 +20,8 @@ const getUserByEmail = async (req, res) => {
         if (user) {
             return res.status(200).json(
                 { 
-                    ok: true, 
+                    ok: true,
+                    msg: "Usuario encontrado", 
                     data: user 
                 }
             );
@@ -89,7 +90,8 @@ const updateUserPasswordByEmail = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12); 
         const updatedUser = await updateUserPasswordByEmailModel(email, hashedPassword);
         return res.status(200).json(
-            { ok: true, 
+            { 
+                ok: true, 
                 msg: "Contraseña actualizada con éxito", 
                 data: updatedUser 
             }

@@ -77,7 +77,7 @@ const createMovie = async (req, res) => {
         return res.status(201).json({
             ok: true,
             msg: 'Nueva pelicula creada',
-            movieSaved
+            data: movieSaved
         });
     } catch (error) {
         console.log(error)
@@ -98,8 +98,8 @@ const createMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
     const id = req.params.id
     try {
-        const data = await deleteMovieModel(id);
-        if(!data){
+        const deletedMovie = await deleteMovieModel(id);
+        if(!deletedMovie){
             return res.status(404).json({
                 ok: false,
                 msg:"Pelicula no encotrada"
@@ -108,7 +108,7 @@ const deleteMovie = async (req, res) => {
         return res.status(200).json({
             ok: true,
             msg: 'Eliminando película',
-            data
+            data: deletedMovie
         });
     } catch (error) {
         return res.status(500).json({
@@ -127,18 +127,18 @@ const deleteMovie = async (req, res) => {
  */
 const editMovie = async (req, res) => {
     const { title,
-        image_url, 
-        year, 
-        director, 
-        duration, 
-        genre_id } = req.body;
+            image_url, 
+            year, 
+            director, 
+            duration, 
+            genre_id } = req.body;
     try {
         const id=req.params.id;
         const movieEdited = await editMovieModel(id, title, image_url, year, director, duration, genre_id);
         return res.status(200).json({
             ok: true,
             msg: 'Pelicula actualizada',
-            movieEdited
+            data: movieEdited
         });
     } catch (error) {
         console.log(error)
@@ -186,7 +186,7 @@ const createGenre = async (req, res) => {
         return res.status(201).json({
             ok: true,
             msg: 'Nuevo género creado',
-            genre: newGenre
+            data: newGenre
         });
     } catch (error) {
         console.log(error);
