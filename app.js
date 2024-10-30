@@ -25,7 +25,7 @@ app.use(express.json())
 /*Rutas*/
 app.use('/api/v1/admin', require('./routers/apiRouterAdmin'))
 app.use('/api/v1/user', require('./routers/apiRouterUser'))
-app.use('/api/v1/auth', require('./routers/apiRouterUser'))
+app.use('/api/v1/auth', require('./routers/apiRouterAuth'))
 
 /*Servidor a la escucha*/
 app.listen(port, ()=>{
